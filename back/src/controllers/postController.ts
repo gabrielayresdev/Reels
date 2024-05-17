@@ -11,39 +11,6 @@ class postController {
       const { filename, originalname, size, mimetype } = req.file;
       const { title, soundtrackUrl } = req.body;
 
-      /* const newPost = await prisma.$transaction(async (prisma) => {
-        // Cria o Post
-        console.log(req.user);
-
-        const file = await prisma.file.create({
-          filename,
-          originalname,
-          size,
-          mimetype,
-          duration: 0,
-        });
-
-        const post = await prisma.post.create({
-          data: {
-            title,
-            soundtrackUrl,
-            authorId: req.user,
-            file: {
-              connect: { id: file.id },
-            },
-          },
-        });
-        console.log(post);
-
-         await prisma.file.update({
-          where: { id: post.id },
-          data: {
-            file: {
-              connect: { id: file.id },
-            },
-          },
-        }); 
-      }); */
       const post = await prisma.post.create({
         data: {
           authorId: req.user,
@@ -75,12 +42,6 @@ class postController {
     try {
       const file = await prisma.file.findMany();
       return res.status(200).json(file);
-    } catch (err) {}
-  }
-  async test(req: Request, res: Response) {
-    try {
-      if (!req.user) return res.send("User not found");
-      res.send(req.user);
     } catch (err) {}
   }
 }

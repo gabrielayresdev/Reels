@@ -30,14 +30,14 @@ class UserController {
       const user = await prisma.user.findUnique({
         where: { email: req.body.email },
       });
-      if (!user)
-        return res.status(404).json({ message: "Usuário não encontrado." });
+      if (!user) return res.status(404).json({ message: "User not found." });
       const { password } = req.body;
       if (auth.checkPassword(password, user.hash, user.salt)) {
         const token = auth.generateJWT(user, true);
-        return res.status(200).json({ token: token });
+
+        return res.status(200).json({ token });
       } else {
-        return res.status(401).json({ message: "Senha inválida." });
+        return res.status(401).json({ message: "Invalid password" });
       }
     } catch (error) {
       return res.status(500).json({ error: error });
@@ -73,7 +73,6 @@ class UserController {
       res.status(500).json({ error });
     }
   }
-  /*
 
   async getUser(req: Request, res: Response) {
     try {
@@ -110,7 +109,7 @@ class UserController {
     } catch (error) {
       res.status(500).json({ error });
     }
-  } */
+  }
 }
 
 export default new UserController();
