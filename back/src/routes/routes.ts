@@ -1,3 +1,4 @@
+import passport from "passport";
 import { Request, Router } from "express";
 import userController from "../controllers/userController";
 import postController from "../controllers/postController";
@@ -33,16 +34,27 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/user", userController.createUser);
 router.get("/user", userController.getAllUsers);
-router.get("/user/:id", userController.getUser);
+/*router.get("/user/:id", userController.getUser);
 router.put("/user/:id", userController.updateUser);
-router.delete("/user/:id", userController.deleteUser);
+router.delete("/user/:id", userController.deleteUser); */
+
+router.post("/login", userController.login);
 
 // req.file is the `avatar` file
 // req.body will hold the text fields, if there were any
-router.post("/post", upload.single("avatar"), postController.createPost);
+router.post(
+  "/post",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("file"),
+  postController.createPost
+);
+router.get("/post", postController.getPosts);
+router.get("/files", postController.getFiles);
+
 router.post("/file", upload.single("file"), function (req, res, next) {
   if (req.file) {
-    console.log(__dirname);
+    return res.json(req.file);
+    /* console.log(__dirname);
     const root = path.join(__dirname, "../..");
     console.log(root);
     const filePath = path.join(root, "uploads", req.file.filename);
@@ -54,7 +66,7 @@ router.post("/file", upload.single("file"), function (req, res, next) {
     } else {
       // Retorna um erro se o arquivo não existir
       res.status(404).json({ error: "File not found" });
-    }
+    } */
   }
 });
 

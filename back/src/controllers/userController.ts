@@ -25,6 +25,46 @@ class UserController {
     }
   }
 
+  async login(req: Request, res: Response) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { email: req.body.email },
+      });
+      if (!user)
+        return res.status(404).json({ message: "Usuário não encontrado." });
+      const { password } = req.body;
+      if (auth.checkPassword(password, user.hash, user.salt)) {
+        const token = auth.generateJWT(user, true);
+        return res.status(200).json({ token: token });
+      } else {
+        return res.status(401).json({ message: "Senha inválida." });
+      }
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
+  }
+
+  /* async show(req: Request, res: Response) {
+    try {
+      if (!req.user)
+        return res.status(400).json({ message: "Erro no token" });
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.user
+        }
+      });
+      if (!user) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+      delete user.hash;
+      delete user.salt;
+      return res.status(200).json({ user: user });
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
+  }
+ */
+
   async getAllUsers(req: Request, res: Response) {
     try {
       const users = await prisma.user.findMany();
@@ -33,6 +73,7 @@ class UserController {
       res.status(500).json({ error });
     }
   }
+  /*
 
   async getUser(req: Request, res: Response) {
     try {
@@ -69,7 +110,7 @@ class UserController {
     } catch (error) {
       res.status(500).json({ error });
     }
-  }
+  } */
 }
 
 export default new UserController();
