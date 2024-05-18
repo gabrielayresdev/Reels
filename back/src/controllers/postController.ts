@@ -32,18 +32,57 @@ class postController {
       return res.status(500).json({ error: err });
     }
   }
+  async getPost(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const post = await prisma.post.findUnique({
+        where: {
+          id: id,
+        },
+        include: { file: true },
+      });
+      return res.status(200).json(post);
+    } catch (err) {}
+  }
   async getPosts(req: Request, res: Response) {
     try {
       const post = await prisma.post.findMany({ include: { file: true } });
       return res.status(200).json(post);
     } catch (err) {}
   }
-  async getFiles(req: Request, res: Response) {
+  async updatePost(req: Request, res: Response) {
+    try {
+      const { title, soundtrackUrl } = req.body;
+      const { id } = req.params;
+      const post = await prisma.post.update({
+        where: {
+          id: id,
+        },
+        data: {
+          title: title,
+          soundtrackUrl: soundtrackUrl,
+        },
+      });
+      return res.status(200).json(post);
+    } catch (err) {}
+  }
+  async deletePost(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const post = await prisma.post.delete({
+        where: {
+          id: id,
+        },
+      });
+      return res.status(200).json(post);
+    } catch (err) {}
+  }
+  /* async getFiles(req: Request, res: Response) {
     try {
       const file = await prisma.file.findMany();
       return res.status(200).json(file);
     } catch (err) {}
-  }
+  } */
 }
 
 export default new postController();
