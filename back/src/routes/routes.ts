@@ -52,19 +52,15 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   postController.getPost
 );
-router.post(
-  "/posts",
-  passport.authenticate("jwt", { session: false }),
-  postController.getPosts
-);
-router.post(
-  "/post",
+router.get("/posts", postController.getPosts);
+router.put(
+  "/post/:id",
   passport.authenticate("jwt", { session: false }),
   checkAdminOrOwner,
   postController.updatePost
 );
-router.post(
-  "/delete",
+router.delete(
+  "/post/:id",
   passport.authenticate("jwt", { session: false }),
   checkAdminOrOwner,
   postController.deletePost
