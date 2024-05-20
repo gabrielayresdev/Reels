@@ -4,7 +4,7 @@ import configDotenv from "./src/config/dotenv";
 import router from "./src/routes/routes";
 import * as path from "path";
 import configAuth from "./src/middlewares/useCredentialMiddleware";
-// import cors from 'cors';
+import cors from "cors";
 // import routes from './src/routes/routes';
 
 configDotenv();
@@ -19,7 +19,7 @@ const videosPath = path.join(__dirname, "/uploads");
 app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(cors());
+app.use(cors());
 app.use("/videos", express.static(videosPath));
 app.use(router);
 
