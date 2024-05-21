@@ -1,3 +1,4 @@
+import LottieView from "lottie-react-native";
 import styled from "styled-components/native";
 
 type PostStyleProps = {
@@ -57,7 +58,7 @@ export const Name = styled.Text`
 export const Icon = styled.View`
   width: 24px;
   height: 30px;
-  background-color: gray;
+  flex: 1;
 `;
 
 export const Title = styled.Text`
