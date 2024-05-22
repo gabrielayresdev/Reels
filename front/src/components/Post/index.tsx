@@ -16,7 +16,12 @@ import {
 } from "./styles";
 import LottieView from "lottie-react-native";
 
-const Post = ({ post }: { post: PostType }) => {
+type Props = {
+  post: PostType;
+  isPlaying: boolean;
+};
+
+const Post = ({ post, isPlaying }: Props) => {
   const { width, height } = Dimensions.get("window");
   const likeRef = React.useRef<LottieView | null>(null);
   const [liked, setLiked] = React.useState(false);
@@ -34,6 +39,16 @@ const Post = ({ post }: { post: PostType }) => {
 
     setLiked(!liked);
   };
+
+  return (
+    <View>
+      <VideoPlayer
+        isPlaying={isPlaying}
+        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
+      />
+    </View>
+  );
+
   return (
     <Container width={width} height={height}>
       <DataContainer>
@@ -59,6 +74,7 @@ const Post = ({ post }: { post: PostType }) => {
           </TouchableOpacity>
         </RightSideContainer>
       </DataContainer>
+
       <VideoPlayer
         url={`http://192.168.15.39:3333/videos/${post.file.originalname}`}
       />

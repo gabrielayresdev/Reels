@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, Text, View } from "react-native";
 import Post from "../../components/Post";
 import { Container } from "./style";
+import PagerView from "react-native-pager-view";
 
 export type Post = {
   id: string;
@@ -34,6 +35,7 @@ type Author = {
 
 const Feed = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
+  const [currentPosts, setCurrentPosts] = React.useState(0);
 
   React.useEffect(() => {
     async function getPosts() {
@@ -55,12 +57,26 @@ const Feed = () => {
   return (
     <Container>
       {posts && (
-        <FlatList
-          data={posts}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Post post={item}></Post>}
-          ListEmptyComponent={() => <Text>Algum error ocorreu</Text>}
-        />
+        <PagerView
+          initialPage={0}
+          useNext
+          orientation="vertical"
+          onPageSelected={(e) => setCurrentPosts(e.nativeEvent.position)}
+        >
+          {/* <FlatList
+            data={posts}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <Post post={item} />}
+            ListEmptyComponent={() => <Text>Algum error ocorreu</Text>}
+          /> */}
+          {posts.map((post, index) => (
+            <Post
+              post={post}
+              key={index + 1}
+              isPlaying={currentPosts === index}
+            />
+          ))}
+        </PagerView>
       )}
     </Container>
   );
