@@ -21,11 +21,11 @@ type Mask = {
 
 type Props = {
   value: string;
-  onChangeText: (text: String) => void;
+  onChangeText: (text: string) => void;
   onBlur?: VoidFunction;
   label?: string;
   placeholder?: string;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
   secureTextEntry?: boolean;
   mask?: Mask;
 };

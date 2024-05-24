@@ -17,6 +17,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import Register from "./src/screens/Register";
 import RegisterContextProvider from "./src/contexts/RegisterContext";
+import Login from "./src/screens/Login";
 
 export default function App() {
   const [robotoLoaded] = useRobotoFonts({
@@ -37,13 +38,7 @@ export default function App() {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      {robotoLoaded && poppinsLoaded ? (
-        <RegisterContextProvider>
-          <Register />
-        </RegisterContextProvider>
-      ) : (
-        <></>
-      )}
+      {robotoLoaded && poppinsLoaded ? <Login /> : <></>}
     </ThemeProvider>
   );
 }
