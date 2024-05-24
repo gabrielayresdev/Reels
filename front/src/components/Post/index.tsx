@@ -6,6 +6,9 @@ import {
   Avatar,
   Container,
   DataContainer,
+  HeartContainer,
+  HeartIcon,
+  Icon,
   LeftSideContainer,
   Name,
   RightSideContainer,
@@ -41,15 +44,6 @@ const Post = ({ post, isPlaying }: Props) => {
   };
 
   return (
-    <View>
-      <VideoPlayer
-        isPlaying={isPlaying}
-        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
-      />
-    </View>
-  );
-
-  return (
     <Container width={width} height={height}>
       <DataContainer>
         <LeftSideContainer>
@@ -65,20 +59,30 @@ const Post = ({ post, isPlaying }: Props) => {
         </LeftSideContainer>
         <RightSideContainer>
           <TouchableOpacity onPress={handleLike}>
-            <LottieView
-              ref={likeRef}
-              style={{ width: 100, height: 100 }}
-              source={require("../../../assets/like_animation.json")}
-              loop={false}
-            />
+            <HeartContainer>
+              <HeartIcon
+                source={require("../../../assets/like_animation.json")}
+                loop={false}
+                ref={likeRef}
+              />
+            </HeartContainer>
           </TouchableOpacity>
         </RightSideContainer>
       </DataContainer>
 
       <VideoPlayer
-        url={`http://192.168.15.39:3333/videos/${post.file.originalname}`}
+        isPlaying={isPlaying}
+        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
       />
     </Container>
+  );
+  return (
+    <View>
+      <VideoPlayer
+        isPlaying={isPlaying}
+        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
+      />
+    </View>
   );
 };
 

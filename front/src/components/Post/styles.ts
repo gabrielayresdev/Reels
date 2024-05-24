@@ -14,12 +14,13 @@ export const Container = styled.View<PostStyleProps>`
 `;
 
 export const DataContainer = styled.View`
+  position: absolute;
   padding: 32px 16px;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
-  z-index: 2;
+  z-index: 10;
   background-color: purple;
 `;
 
@@ -73,4 +74,21 @@ export const SpotifySoundTrack = styled.Text`
   align-self: flex-start;
   padding: 4px 8px;
   font-size: 14px;
+`;
+
+export const HeartContainer = styled.View`
+  position: relative;
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const HeartIcon = styled(LottieView)`
+  width: 70px;
+  height: 70px;
+
+  position: absolute;
+  z-index: 10;
 `;

@@ -23,8 +23,9 @@ const VideoPlayer = ({
       key={1}
       rate={1.0}
       volume={1.0}
-      isMuted={false}
+      isMuted={true}
       shouldPlay={isPlaying}
+      isLooping={true}
       useNativeControls={false}
       source={{
         uri: url,
