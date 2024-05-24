@@ -6,18 +6,19 @@ import {
   Avatar,
   Container,
   DataContainer,
+  FollowButton,
+  FollowButtonText,
+  Gradient,
   HeartContainer,
   HeartIcon,
-  Icon,
   LeftSideContainer,
   Name,
   RightSideContainer,
-  SpotifySoundTrack,
   Title,
   UserData,
-  UserDataTextContainer,
 } from "./styles";
 import LottieView from "lottie-react-native";
+import SpotifySoundTrack from "../SpotifySoundTrack";
 
 type Props = {
   post: PostType;
@@ -49,13 +50,15 @@ const Post = ({ post, isPlaying }: Props) => {
         <LeftSideContainer>
           <UserData>
             <Avatar />
-            <UserDataTextContainer>
+            <View>
               <Name>{post.author.name}</Name>
-              <Text>Follow</Text>
-            </UserDataTextContainer>
+              <FollowButton>
+                <FollowButtonText>Follow</FollowButtonText>
+              </FollowButton>
+            </View>
           </UserData>
           <Title>{post.title}</Title>
-          <SpotifySoundTrack>Sick of The Silence</SpotifySoundTrack>
+          <SpotifySoundTrack title={post.soundtrackUrl} />
         </LeftSideContainer>
         <RightSideContainer>
           <TouchableOpacity onPress={handleLike}>
@@ -74,15 +77,16 @@ const Post = ({ post, isPlaying }: Props) => {
         isPlaying={isPlaying}
         url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
       />
-    </Container>
-  );
-  return (
-    <View>
-      <VideoPlayer
-        isPlaying={isPlaying}
-        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
+      <Gradient
+        locations={[0, 0.26, 0.6, 1]}
+        colors={[
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0.7)",
+        ]}
       />
-    </View>
+    </Container>
   );
 };
 

@@ -46,7 +46,9 @@ class postController {
   }
   async getPosts(req: Request, res: Response) {
     try {
-      const post = await prisma.post.findMany({ include: { file: true } });
+      const post = await prisma.post.findMany({
+        include: { file: true, author: true },
+      });
       return res.status(200).json(post);
     } catch (err) {}
   }

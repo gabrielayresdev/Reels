@@ -1,5 +1,6 @@
 import LottieView from "lottie-react-native";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 type PostStyleProps = {
   width: number;
@@ -15,12 +16,21 @@ export const Container = styled.View<PostStyleProps>`
 
 export const DataContainer = styled.View`
   position: absolute;
-  padding: 32px 16px;
+  padding: 32px 16px 16px;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
   z-index: 10;
+`;
+
+export const Gradient = styled(LinearGradient)`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
 `;
 
 export const LeftSideContainer = styled.View`
@@ -39,35 +49,40 @@ export const UserData = styled.View`
 `;
 
 export const Avatar = styled.View`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   background-color: gray;
-  border-radius: 20px;
+  border-radius: 30px;
 `;
-
-export const UserDataTextContainer = styled.View``;
 
 export const Name = styled.Text`
-  font-size: 14px;
-  color: white;
+  ${({ theme }) => css`
+    font-family: ${theme.FONT_FAMILY.POPPINS.SEMIBOLD};
+    font-size: 20px;
+    color: white;
+  `}
 `;
 
-export const Icon = styled.View`
-  width: 24px;
-  height: 30px;
-  flex: 1;
+export const FollowButton = styled.TouchableHighlight`
+  padding: 4px 8px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  align-self: flex-start;
+`;
+export const FollowButtonText = styled.Text`
+  ${({ theme }) => css`
+    font-family: ${theme.FONT_FAMILY.ROBOTO.REGULAR};
+    font-size: 14px;
+    color: white;
+  `}
 `;
 
 export const Title = styled.Text`
-  font-size: 14px;
-  color: white;
-`;
-
-export const SpotifySoundTrack = styled.Text`
-  border-radius: 20px;
-  align-self: flex-start;
-  padding: 4px 8px;
-  font-size: 14px;
+  ${({ theme }) => css`
+    font-family: ${theme.FONT_FAMILY.ROBOTO.REGULAR};
+    font-size: 14px;
+    color: white;
+  `}
 `;
 
 export const HeartContainer = styled.View`
