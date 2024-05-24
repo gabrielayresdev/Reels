@@ -21,17 +21,14 @@ export const DataContainer = styled.View`
   justify-content: space-between;
   gap: 40px;
   z-index: 10;
-  background-color: purple;
 `;
 
 export const LeftSideContainer = styled.View`
   flex: 1;
-  background-color: green;
   gap: 12px;
 `;
 
 export const RightSideContainer = styled.View`
-  background-color: pink;
   height: 100%;
 `;
 
@@ -53,7 +50,6 @@ export const UserDataTextContainer = styled.View``;
 export const Name = styled.Text`
   font-size: 14px;
   color: white;
-  background-color: blue;
 `;
 
 export const Icon = styled.View`
@@ -65,11 +61,9 @@ export const Icon = styled.View`
 export const Title = styled.Text`
   font-size: 14px;
   color: white;
-  background-color: red;
 `;
 
 export const SpotifySoundTrack = styled.Text`
-  background-color: gray;
   border-radius: 20px;
   align-self: flex-start;
   padding: 4px 8px;
