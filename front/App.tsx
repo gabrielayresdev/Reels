@@ -1,41 +1,42 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import Feed from "./src/screens/Feed";
-import LottieView from "lottie-react-native";
 import React from "react";
+import { ThemeProvider } from "styled-components/native";
+import theme from "./src/theme";
+import {
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+  useFonts as usePoppinsFonts,
+} from "@expo-google-fonts/poppins";
+import {
+  Roboto_300Light,
+  Roboto_400Regular,
+  Roboto_700Bold,
+  useFonts as useRobotoFonts,
+} from "@expo-google-fonts/roboto";
 
 export default function App() {
-  const likeRef = React.useRef<LottieView | null>(null);
-  const [liked, setLiked] = React.useState(false);
-
-  React.useEffect(() => {
-    likeRef?.current?.play(0, 1);
-  }, []);
-
-  const handleLike = () => {
-    if (liked) {
-      likeRef?.current?.reset();
-    } else {
-      likeRef?.current?.play(30, 144);
-    }
-
-    setLiked(!liked);
-  };
+  const [robotoLoaded] = useRobotoFonts({
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+  const [poppinsLoaded] = usePoppinsFonts({
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <StatusBar
         translucent
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      <Feed />
-    </>
+      {robotoLoaded && poppinsLoaded ? <Feed /> : <></>}
+    </ThemeProvider>
   );
 }
 
