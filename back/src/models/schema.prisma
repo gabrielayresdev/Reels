@@ -17,11 +17,10 @@ datasource db {
 model User {
   id    String  @id @default(uuid())
   name  String
-  cpf   String  @unique @db.Char(11)
+  phone String  @unique @db.VarChar(14)
   email String  @unique @db.VarChar(100)
   hash  String
   salt  String
-  tel   String  @unique @db.VarChar(14)
   adm   Boolean
   likes Post[]  @relation("postsLiked")
   posts Post[]  @relation("postsPosted")

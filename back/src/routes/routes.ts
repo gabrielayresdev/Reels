@@ -15,7 +15,6 @@ const upload = multer({ dest: "uploads/" });
 router.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
-  checkAdmin,
   userController.getAllUsers
 );
 router.get(
@@ -62,9 +61,9 @@ router.put(
 router.delete(
   "/post/:id",
   passport.authenticate("jwt", { session: false }),
-  checkAdminOrOwner,
   postController.deletePost
 );
-/* router.get("/files", postController.getFiles); */
+
+router.get("/files", postController.getFiles);
 
 export default router;

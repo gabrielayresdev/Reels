@@ -12,12 +12,14 @@ import getVisibleDataFromUser from "../utils/getVisibleDataFromUser";
 class AuthController {
   async register(req: Request, res: Response) {
     try {
-      const { name, cpf, email, password, tel } = req.body;
+      const { name, email, password, phone } = req.body;
       const { hash, salt } = auth.generatePassword(password);
 
+      console.log(phone);
       const user = await prisma.user.create({
-        data: { name, cpf, email, tel, hash, salt, adm: false },
+        data: { name, email, phone, hash, salt, adm: false },
       });
+      console.log("Oi");
 
       res.status(201).json(getVisibleDataFromUser(user));
     } catch (error) {
