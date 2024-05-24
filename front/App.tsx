@@ -15,6 +15,8 @@ import {
   Roboto_700Bold,
   useFonts as useRobotoFonts,
 } from "@expo-google-fonts/roboto";
+import Register from "./src/screens/Register";
+import RegisterContextProvider from "./src/contexts/RegisterContext";
 
 export default function App() {
   const [robotoLoaded] = useRobotoFonts({
@@ -35,7 +37,13 @@ export default function App() {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      {robotoLoaded && poppinsLoaded ? <Feed /> : <></>}
+      {robotoLoaded && poppinsLoaded ? (
+        <RegisterContextProvider>
+          <Register />
+        </RegisterContextProvider>
+      ) : (
+        <></>
+      )}
     </ThemeProvider>
   );
 }
