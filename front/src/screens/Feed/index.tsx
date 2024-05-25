@@ -62,6 +62,7 @@ const Feed = () => {
           useNext
           orientation="vertical"
           onPageSelected={(e) => setCurrentPosts(e.nativeEvent.position)}
+          style={{ flex: 1 }}
         >
           {/* <FlatList
             data={posts}

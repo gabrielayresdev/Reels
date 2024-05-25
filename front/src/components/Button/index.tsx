@@ -6,12 +6,20 @@ type Props = {
   text: string;
   onClick: VoidFunction;
   disabled?: boolean;
+  type?: "PRIMARY" | "SECONDARY";
 };
 
-const Button = ({ text, onClick, disabled = false }: Props) => {
+const Button = ({
+  text,
+  onClick,
+  disabled = false,
+  type = "PRIMARY",
+}: Props) => {
   return (
-    <Btn onPress={onClick} disabled={disabled}>
-      <BtnText>{text}</BtnText>
+    <Btn onPress={onClick} disabled={disabled} type={type}>
+      <BtnText disabled={disabled} type={type}>
+        {text}
+      </BtnText>
     </Btn>
   );
 };

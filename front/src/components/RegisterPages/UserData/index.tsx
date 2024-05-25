@@ -4,9 +4,11 @@ import { Container } from "./styles";
 import { Controller } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
+import { useNavigation } from "@react-navigation/native";
 
 const UserData = () => {
   const [disabled, setDisabled] = React.useState(false);
+  const navigation = useNavigation();
   const { control, errors, trigger, pagination, handlePartialSubmit } =
     useRegisterContext();
 
@@ -73,6 +75,13 @@ const UserData = () => {
         name="phone"
       />
       <Button text="Avançar" disabled={disabled} onClick={handleClick} />
+      <Button
+        text="Entrar"
+        onClick={() => {
+          navigation.navigate("Login");
+        }}
+        type="SECONDARY"
+      />
     </Container>
   );
 };

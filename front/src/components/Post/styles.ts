@@ -11,6 +11,8 @@ export const Container = styled.View<PostStyleProps>`
   position: relative;
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
+  max-width: 100%;
+  max-height: 100%;
   justify-content: flex-end;
 `;
 

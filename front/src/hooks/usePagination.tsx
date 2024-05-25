@@ -12,7 +12,7 @@ const usePagination = (max: number) => {
   }
 
   function goTo(target: number) {
-    if (0 < target && target < max) setPage(target);
+    if (0 <= target && target < max) setPage(target);
   }
 
   return { page, goNext, goBack, goTo };

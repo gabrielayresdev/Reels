@@ -2,10 +2,12 @@ import React from "react";
 import { Container } from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("tapafurq12@gmail.com");
+  const [password, setPassword] = React.useState("teste123");
+  const navigation = useNavigation();
   const onSubmit = async () => {
     try {
       const response = await fetch("http://192.168.15.39:3333/login", {
@@ -21,6 +23,7 @@ const Login = () => {
 
       if (response?.status === 200) {
         console.log("Logado");
+        navigation.navigate("Auth");
       }
 
       const token = await response.json();
@@ -47,6 +50,13 @@ const Login = () => {
         placeholder="Senha"
       />
       <Button text="Entrar" onClick={onSubmit} />
+      <Button
+        text="Criar conta"
+        onClick={() => {
+          navigation.navigate("Register");
+        }}
+        type="SECONDARY"
+      />
     </Container>
   );
 };

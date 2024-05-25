@@ -1,11 +1,19 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
-type BtnStyleProps = {
+export type BtnStyleProps = {
   disabled: boolean;
+  type?: "PRIMARY" | "SECONDARY";
 };
 
 export const Btn = styled.TouchableOpacity<BtnStyleProps>`
-  background: ${({ disabled }) => (disabled ? "#ddd" : "#FE2B53")};
+  ${({ type, disabled }) =>
+    type === "PRIMARY"
+      ? css`
+          background: ${disabled ? "#ddd" : "#FE2B53"};
+        `
+      : css`
+          background: transparent;
+        `}
   padding: 8px 16px;
 
   width: 100%;
@@ -16,8 +24,16 @@ export const Btn = styled.TouchableOpacity<BtnStyleProps>`
   justify-content: center;
 `;
 
-export const BtnText = styled.Text`
-  color: #000;
+export const BtnText = styled.Text<BtnStyleProps>`
+  ${({ type, disabled }) =>
+    type === "PRIMARY"
+      ? css`
+          color: ${disabled ? "#000" : "#fff"};
+        `
+      : css`
+          color: "#000";
+        `}
+
   font-size: 16px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.POPPINS.SEMIBOLD};
 `;

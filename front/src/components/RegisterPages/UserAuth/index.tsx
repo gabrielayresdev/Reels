@@ -7,14 +7,15 @@ import { Container } from "./styles";
 import { Controller, SubmitHandler } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
+import { useNavigation } from "@react-navigation/native";
 
 const UserAuth = () => {
-  const { control, handleSubmit, errors, watch, trigger } =
+  const { control, handleSubmit, errors, watch, trigger, pagination } =
     useRegisterContext();
   const passwordRef = React.useRef<string>();
   passwordRef.current = watch("password", "");
   const [disabled, setDisabled] = React.useState(false);
-
+  const navigation = useNavigation();
   const onSubmit: SubmitHandler<RegisterProps> = async (data) => {
     try {
       const response = await fetch("http://192.168.15.39:3333/register", {
@@ -32,6 +33,7 @@ const UserAuth = () => {
 
       if (response?.status === 201) {
         console.log("Cadastrado");
+        navigation.navigate("Login");
       }
     } catch (error) {
       console.log(error);
@@ -113,6 +115,13 @@ const UserAuth = () => {
         text="Concluir cadastro"
         disabled={disabled}
         onClick={handleSubmit(onSubmit)}
+      />
+      <Button
+        text="Voltar"
+        onClick={() => {
+          pagination.goBack();
+        }}
+        type="SECONDARY"
       />
     </Container>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 import { Post as PostType } from "../../screens/Feed";
 import VideoPlayer from "../VideoPlayer";
 import {
@@ -19,6 +19,7 @@ import {
 } from "./styles";
 import LottieView from "lottie-react-native";
 import SpotifySoundTrack from "../SpotifySoundTrack";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = {
   post: PostType;
@@ -26,9 +27,13 @@ type Props = {
 };
 
 const Post = ({ post, isPlaying }: Props) => {
-  const { width, height } = Dimensions.get("window");
+  const dimensions = Dimensions.get("window");
+  const insets = useSafeAreaInsets();
   const likeRef = React.useRef<LottieView | null>(null);
   const [liked, setLiked] = React.useState(false);
+
+  const width = dimensions.width;
+  const height = dimensions.height - insets.top - 50;
 
   React.useState(() => {
     likeRef?.current?.play(0, 30);

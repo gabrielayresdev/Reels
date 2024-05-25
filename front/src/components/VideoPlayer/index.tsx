@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { ResizeMode, Video } from "expo-av";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const VideoPlayer = ({
   url,
@@ -9,7 +10,10 @@ const VideoPlayer = ({
   url: string;
   isPlaying: boolean;
 }) => {
-  const { width, height } = Dimensions.get("window");
+  const dimensions = Dimensions.get("window");
+  const insets = useSafeAreaInsets();
+  const width = dimensions.width;
+  const height = dimensions.height - insets.top - 50;
 
   return (
     <Video
