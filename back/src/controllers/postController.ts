@@ -115,12 +115,12 @@ class postController {
       }
     } catch (err) {}
   }
-  async getFiles(req: Request, res: Response) {
+  /*  async getFiles(req: Request, res: Response) {
     try {
       const file = await prisma.file.findMany();
       return res.status(200).json(file);
     } catch (err) {}
-  }
+  } */
 }
 
 export default new postController();

@@ -15,11 +15,9 @@ class AuthController {
       const { name, email, password, phone } = req.body;
       const { hash, salt } = auth.generatePassword(password);
 
-      console.log(phone);
       const user = await prisma.user.create({
         data: { name, email, phone, hash, salt, adm: false },
       });
-      console.log("Oi");
 
       res.status(201).json(getVisibleDataFromUser(user));
     } catch (error) {
