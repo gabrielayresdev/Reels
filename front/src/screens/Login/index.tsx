@@ -10,7 +10,7 @@ const Login = () => {
   const navigation = useNavigation();
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://192.168.15.39:3333/login", {
+      const response = await fetch("http://{ip}:3333/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

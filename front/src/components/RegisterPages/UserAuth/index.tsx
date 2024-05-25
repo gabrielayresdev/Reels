@@ -18,7 +18,7 @@ const UserAuth = () => {
   const navigation = useNavigation();
   const onSubmit: SubmitHandler<RegisterProps> = async (data) => {
     try {
-      const response = await fetch("http://192.168.15.39:3333/register", {
+      const response = await fetch("http://{ip}:3333/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

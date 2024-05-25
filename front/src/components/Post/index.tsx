@@ -80,7 +80,7 @@ const Post = ({ post, isPlaying }: Props) => {
 
       <VideoPlayer
         isPlaying={isPlaying}
-        url={`http://192.168.15.39:3333/videos/${post.file.filename}`}
+        url={`http://{ip}:3333/videos/${post.file.filename}`}
       />
       <Gradient
         locations={[0, 0.26, 0.6, 1]}

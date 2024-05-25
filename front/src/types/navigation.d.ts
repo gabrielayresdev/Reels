@@ -5,12 +5,5 @@ export declare global {
       Login: undefined;
       Auth: undefined;
     }
-
-    interface AuthenticatedParamList {
-      Feed: undefined;
-      Liked: undefined;
-      Profile: undefined;
-      AppConfig: undefined;
-    }
   }
 }

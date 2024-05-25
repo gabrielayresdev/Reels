@@ -41,7 +41,7 @@ const Feed = () => {
     async function getPosts() {
       try {
         console.log("Fazendo fetch");
-        const response = await fetch("http://192.168.15.39:3333/posts");
+        const response = await fetch("http://{ip}:3333/posts");
         /* console.log(response); */
         const data = await response.json();
         /* console.log(data); */
