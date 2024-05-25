@@ -52,6 +52,8 @@ DATABASE_URL =
   "postgresql://{dbname}:{dbpassword}@localhost:5432/{DATABASE}?schema=public";
 ```
 
+também é necessário modificar as varáveis {ip} nos arquivos UserAuth, Post, Login e Feed pelo ip do seu computador.
+
 ## Uso
 
 depois realizamos os seguintes comandos
@@ -75,7 +77,8 @@ npm install
 npm run start
 ```
 
-! Atenção: É importante que o frontend seja executado no app Expo-go para funcionar corretamente
+> **Atenção**
+> É importante que o frontend seja executado no app Expo-go para funcionar corretamente
 
 ## Arquitetura
 
