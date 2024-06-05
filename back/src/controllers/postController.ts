@@ -75,7 +75,7 @@ class postController {
     try {
       const { id } = req.params;
       console.log(id);
-      const post = await prisma.post.findUnique({
+      const post = await prisma.post.delete({
         where: {
           id: id,
         },
@@ -87,21 +87,6 @@ class postController {
         const filename = post.file.filename;
         const filePath = path.join(__dirname, "..", "..", "uploads", filename);
         console.log(filePath);
-
-        await prisma.file.delete({
-          where: {
-            id: post.file.id,
-          },
-        });
-        console.log("Deletei o arquivo no BD");
-
-        await prisma.post.delete({
-          where: {
-            id: id,
-          },
-          include: { file: true },
-        });
-        console.log("Deletei o Post");
 
         fs.unlink(filePath, (err) => {
           if (err) {

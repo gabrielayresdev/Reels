@@ -30,7 +30,7 @@ model User {
 
 model Post {
   id            String  @id @default(uuid())
-  author        User    @relation("postsPosted", fields: [authorId], references: [id])
+  author        User    @relation("postsPosted", fields: [authorId], references: [id], onDelete: Cascade)
   authorId      String
   title         String
   soundtrackUrl String?
@@ -48,7 +48,7 @@ model File {
   mimetype     String
   duration     Int
 
-  post   Post   @relation(fields: [postId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String @unique
 
   @@map("file")
