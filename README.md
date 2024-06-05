@@ -1,10 +1,6 @@
 # Reels | EJCM
 
-_Se tiver dúvidas sobre a sintaxe do Markdown, pode ver esse link: https://github.com/luong-komorebi/Markdown-Tutorial/blob/master/README_pt-BR.md#sintaxe-do-markdown._
-
-_Se tiver dúvidas sobre as badges, pode ver esses links: [Repositórios com Badges](https://github.com/alexandresanlim/Badges4-README.md-Profile#-streaming-) • [Como customizar badges](https://shields.io/)_
-
-Aqui você deve por uma breve descrição sobre o projeto e sua finalidade.
+Projeto que busca desenvolver uma rede social onde o usuário pode postar pequenos vídeos e adicionar trilhas sonoras a eles.
 
 **Status do Projeto** : Em desenvolvimento
 
@@ -19,9 +15,8 @@ _Faça um índice com links internos para todos os tópicos seguintes._
 2.  [Instalação](#instalação)
 3.  [Configuração](#configuração)
 4.  [Uso](#uso)
-5.  [Testes](#testes)
-6.  [Arquitetura](#arquitetura)
-7.  [Autores](#autores)
+5.  [Arquitetura](#arquitetura)
+6.  [Autores](#autores)
 
 ## Tecnologias utilizadas
 
