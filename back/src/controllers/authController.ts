@@ -43,23 +43,6 @@ class AuthController {
       return res.status(500).json({ error: error });
     }
   }
-
-  async show(req: Request, res: Response) {
-    try {
-      if (!req.user) return res.status(400).json({ message: "Token error" });
-      const user = await prisma.user.findUnique({
-        where: {
-          id: req.user,
-        },
-      });
-      if (!user) {
-        return res.status(404).json({ message: "Usuário não encontrado" });
-      }
-      return res.status(200).json({ user: getVisibleDataFromUser(user) });
-    } catch (error) {
-      return res.status(500).json({ error: error });
-    }
-  }
 }
 
 export default new AuthController();
