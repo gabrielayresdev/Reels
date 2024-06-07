@@ -11,7 +11,6 @@ class postController {
       if (!req.user) return res.status(404).send("You must be logged in");
       if (!req.file) return res.status(404).send("You must provide a file");
       const { filename, originalname, size, mimetype } = req.file;
-      console.log(filename);
       const { title, soundtrackUrl } = req.body;
 
       const post = await prisma.post.create({
@@ -49,6 +48,7 @@ class postController {
   }
   async getPosts(req: Request, res: Response) {
     try {
+      console.log("oi");
       const post = await prisma.post.findMany({
         include: { file: true, author: true },
       });
@@ -83,7 +83,6 @@ class postController {
       });
 
       if (post && post.file) {
-        console.log("Estou tentando deletar o arquivo:");
         const filename = post.file.filename;
         const filePath = path.join(__dirname, "..", "..", "uploads", filename);
         console.log(filePath);

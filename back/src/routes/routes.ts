@@ -14,8 +14,8 @@ const upload = multer({ dest: "uploads/" });
 
 router.get(
   "/users",
-  passport.authenticate("jwt", { session: false }),
-  checkAdmin,
+  /* passport.authenticate("jwt", { session: false }),
+  checkAdmin, */
   userController.getAllUsers
 );
 router.get(
