@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.create({
+  await prisma.user.create({
     data: {
       id: "17f06e40-d63c-495a-b7c6-2ee648cf5e94",
       name: "Furq",
@@ -41,6 +41,17 @@ async function main() {
           },
         ],
       },
+    },
+  });
+  await prisma.user.create({
+    data: {
+      id: "ba24bc28-8900-4180-b574-3d548b49adff",
+      name: "ADMIN",
+      phone: "999999999",
+      email: "admin@gmail.com",
+      hash: "9be7bac5034814687bb106ee0dd3c33ff2932e4f635847f49ed625c22bbe01650fb7596fd3b23c362b87151b8042d767ca489e2946aa018bae4b4e8ed7ef1c43",
+      salt: "2b9d5dcbe43cfe2213416f88bb7ae62c7880b1224f290d11403dcc9bce22f7eb",
+      adm: true,
     },
   });
 }
