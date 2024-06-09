@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View, ViewToken } from "react-native";
 import Post from "../../components/Post";
 import { Container } from "./style";
 import PagerView from "react-native-pager-view";
@@ -36,14 +36,13 @@ type Author = {
 
 const Feed = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
-  const [currentPosts, setCurrentPosts] = React.useState(0);
+  const [currentPost, setCurrentPost] = React.useState(0);
 
   React.useEffect(() => {
     async function getPosts() {
       try {
         console.log("Fazendo fetch");
         const response = await fetch(`http://${MY_IP}:3333/posts`);
-        console.log(response);
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -54,31 +53,27 @@ const Feed = () => {
     getPosts();
   }, []);
 
+  const onViewableItemsChanged = ({
+    viewableItems,
+  }: {
+    viewableItems: ViewToken[];
+  }) => {
+    setCurrentPost(
+      viewableItems[0].index !== null ? viewableItems[0].index : -1
+    );
+  };
+
   return (
     <Container>
-      {posts && (
-        <PagerView
-          initialPage={0}
-          useNext
-          orientation="vertical"
-          onPageSelected={(e) => setCurrentPosts(e.nativeEvent.position)}
-          style={{ flex: 1 }}
-        >
-          {/* <FlatList
-            data={posts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Post post={item} />}
-            ListEmptyComponent={() => <Text>Algum error ocorreu</Text>}
-          /> */}
-          {posts.map((post, index) => (
-            <Post
-              post={post}
-              key={index + 1}
-              isPlaying={currentPosts === index}
-            />
-          ))}
-        </PagerView>
-      )}
+      <FlatList
+        onViewableItemsChanged={onViewableItemsChanged}
+        data={posts}
+        renderItem={({ item, index }) => (
+          <Post post={item} isPlaying={currentPost === index} />
+        )}
+        keyExtractor={(item) => item.id}
+        pagingEnabled
+      />
     </Container>
   );
 };
