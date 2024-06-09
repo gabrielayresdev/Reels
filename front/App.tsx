@@ -1,5 +1,4 @@
-import { StyleSheet, StatusBar } from "react-native";
-import Feed from "./src/screens/Feed";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
@@ -16,6 +15,8 @@ import {
   useFonts as useRobotoFonts,
 } from "@expo-google-fonts/roboto";
 import Routes from "./src/routes";
+import { UserContextProvider } from "./src/contexts/UserContext";
+import { MY_IP } from "@env";
 
 export default function App() {
   const [robotoLoaded] = useRobotoFonts({
@@ -29,14 +30,16 @@ export default function App() {
     Poppins_700Bold,
   });
 
+  console.log(MY_IP);
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      {robotoLoaded && poppinsLoaded ? <Routes /> : <></>}
+      {robotoLoaded && poppinsLoaded ? (
+        <UserContextProvider>
+          <Routes />
+        </UserContextProvider>
+      ) : (
+        <></>
+      )}
     </ThemeProvider>
   );
 }

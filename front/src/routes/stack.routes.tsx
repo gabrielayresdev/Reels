@@ -5,6 +5,8 @@ import { View } from "react-native";
 import Routes from ".";
 import RegisterContextProvider from "../contexts/RegisterContext";
 import TabRoutes from "./tab.routes";
+import { UserContextProvider } from "../contexts/UserContext";
+import { Authenticated } from "../components/Authenticated";
 
 const NativeStack = createNativeStackNavigator();
 
@@ -17,6 +19,11 @@ export default function NativeStackRoutes() {
       }}
     >
       <NativeStack.Screen
+        name="Auth"
+        component={AuthenticatedWithContext}
+        options={{ title: "", headerShown: false }}
+      />
+      <NativeStack.Screen
         name="Register"
         component={RegisterWithContext}
         options={{ title: "Cadastro" }}
@@ -26,17 +33,16 @@ export default function NativeStackRoutes() {
         component={Login}
         options={{ title: "Login" }}
       />
-      <NativeStack.Screen
-        name="Auth"
-        component={Authenticated}
-        options={{ title: "", headerShown: false }}
-      />
     </NativeStack.Navigator>
   );
 }
 
-function Authenticated() {
-  return <TabRoutes />;
+function AuthenticatedWithContext() {
+  return (
+    <Authenticated>
+      <TabRoutes />
+    </Authenticated>
+  );
 }
 
 function RegisterWithContext() {

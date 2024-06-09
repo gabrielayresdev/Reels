@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import { MY_IP } from "@env";
 
 const Login = () => {
   const [email, setEmail] = React.useState("tapafurq12@gmail.com");
@@ -10,7 +11,7 @@ const Login = () => {
   const navigation = useNavigation();
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://{ip}:3333/login", {
+      const response = await fetch(`http://${MY_IP}:3333/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,7 +5,8 @@ import NativeStackRoutes from "./stack.routes";
 export default function Routes() {
   return (
     <NavigationContainer>
-      <NativeStackRoutes />
+      {/* <NativeStackRoutes /> */}
+      <TabRoutes />
     </NavigationContainer>
   );
 }

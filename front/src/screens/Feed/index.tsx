@@ -3,6 +3,7 @@ import { FlatList, Text, View } from "react-native";
 import Post from "../../components/Post";
 import { Container } from "./style";
 import PagerView from "react-native-pager-view";
+import { MY_IP } from "@env";
 
 export type Post = {
   id: string;
@@ -41,10 +42,9 @@ const Feed = () => {
     async function getPosts() {
       try {
         console.log("Fazendo fetch");
-        const response = await fetch("http://{ip}:3333/posts");
-        /* console.log(response); */
+        const response = await fetch(`http://${MY_IP}:3333/posts`);
+        console.log(response);
         const data = await response.json();
-        /* console.log(data); */
         setPosts(data);
       } catch (error) {
         console.log(error);

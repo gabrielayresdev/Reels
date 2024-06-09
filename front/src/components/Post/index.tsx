@@ -20,6 +20,7 @@ import {
 import LottieView from "lottie-react-native";
 import SpotifySoundTrack from "../SpotifySoundTrack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { MY_IP } from "@env";
 
 type Props = {
   post: PostType;
@@ -80,7 +81,7 @@ const Post = ({ post, isPlaying }: Props) => {
 
       <VideoPlayer
         isPlaying={isPlaying}
-        url={`http://{ip}:3333/videos/${post.file.filename}`}
+        url={`http://${MY_IP}:3333/videos/${post.file.filename}`}
       />
       <Gradient
         locations={[0, 0.26, 0.6, 1]}
