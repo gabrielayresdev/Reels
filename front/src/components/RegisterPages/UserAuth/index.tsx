@@ -8,7 +8,7 @@ import { Controller, SubmitHandler } from "react-hook-form";
 import Input from "../../Input";
 import Button from "../../Button";
 import { useNavigation } from "@react-navigation/native";
-import { MY_IP } from "@env";
+import AuthService from "../../../services/AuthService";
 
 const UserAuth = () => {
   const { control, handleSubmit, errors, watch, trigger, pagination } =
@@ -19,18 +19,7 @@ const UserAuth = () => {
   const navigation = useNavigation();
   const onSubmit: SubmitHandler<RegisterProps> = async (data) => {
     try {
-      const response = await fetch(`http://${MY_IP}:3333/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          phone: data.phone,
-        }),
-      });
+      const response = await AuthService.register(data);
 
       if (response?.status === 201) {
         console.log("Cadastrado");

@@ -3,33 +3,21 @@ import { Container } from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { MY_IP } from "@env";
-
+import AuthService from "../../services/AuthService";
 const Login = () => {
   const [email, setEmail] = React.useState("tapafurq12@gmail.com");
   const [password, setPassword] = React.useState("teste123");
   const navigation = useNavigation();
   const onSubmit = async () => {
     try {
-      const response = await fetch(`http://${MY_IP}:3333/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-
+      const response = await AuthService.login({ email, password });
       if (response?.status === 200) {
-        console.log("Logado");
+        const token = response.data;
+
+        console.log("Logado: ");
+        console.log(token);
         navigation.navigate("Auth");
       }
-
-      const token = await response.json();
-
-      console.log(token);
     } catch (error) {
       console.log(error);
     }

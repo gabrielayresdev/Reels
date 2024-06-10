@@ -4,6 +4,7 @@ import Post from "../../components/Post";
 import { Container } from "./style";
 import PagerView from "react-native-pager-view";
 import { MY_IP } from "@env";
+import FeedService from "../../services/FeedService";
 
 export type Post = {
   id: string;
@@ -42,9 +43,11 @@ const Feed = () => {
     async function getPosts() {
       try {
         console.log("Fazendo fetch");
-        const response = await fetch(`http://${MY_IP}:3333/posts`);
-        const data = await response.json();
-        setPosts(data);
+        const response = await FeedService.getPosts();
+        if (response?.status === 200) {
+          const data: Post[] = response.data();
+          setPosts(data);
+        }
       } catch (error) {
         console.log(error);
       }
