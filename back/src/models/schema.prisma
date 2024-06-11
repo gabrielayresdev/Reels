@@ -30,13 +30,14 @@ model User {
 }
 
 model Post {
-  id            String  @id @default(uuid())
-  author        User    @relation("postsPosted", fields: [authorId], references: [id], onDelete: Cascade)
+  id            String       @id @default(uuid())
+  author        User         @relation("postsPosted", fields: [authorId], references: [id], onDelete: Cascade)
   authorId      String
   title         String
   soundtrackUrl String?
-  likes         User[]  @relation("postsLiked")
+  likes         User[]       @relation("postsLiked")
   file          File?
+  comments      Commentary[]
 
   @@map("post")
 }
@@ -60,4 +61,6 @@ model Commentary {
   content  String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
 }
