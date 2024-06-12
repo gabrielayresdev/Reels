@@ -63,4 +63,6 @@ model Commentary {
   authorId String
   post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId   String
+
+  @@map("commentary")
 }

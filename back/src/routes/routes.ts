@@ -6,18 +6,16 @@ import multer from "multer";
 import authController from "../controllers/authController";
 import { checkAdmin } from "../middlewares/checkAdmin";
 import { checkAdminOrOwner } from "../middlewares/checkAdminOrOwner";
+import commentaryController from "../controllers/commentaryController";
 
 const router = Router();
 
 /* const upload = multer({ storage: storage }); */
+// Permite que o acesso aos arquivos armazenados na pasta uploads no servidor
 const upload = multer({ dest: "uploads/" });
 
-router.get(
-  "/users",
-  /* passport.authenticate("jwt", { session: false }),
-  checkAdmin, */
-  userController.getAllUsers
-);
+/* ============= USER ROUTES ============= */
+router.get("/users", userController.getAllUsers);
 router.get(
   "/user/:id",
   passport.authenticate("jwt", { session: false }),
@@ -36,11 +34,12 @@ router.delete(
   checkAdminOrOwner,
   userController.deleteUser
 );
+
+/* ============= AUTH ROUTES ============= */
 router.post("/login", authController.login);
 router.post("/register", authController.register);
 
-// req.file is the `file` file
-// req.body will hold the text fields, if there were any
+/* ============= POST ROUTES ============= */
 router.post(
   "/post",
   passport.authenticate("jwt", { session: false }),
@@ -66,6 +65,24 @@ router.delete(
   postController.deletePost
 );
 
-/* router.get("/files", postController.getFiles); */
+/* ============= COMMENTARY ROUTES ============= */
+router.post(
+  "/commentary",
+  passport.authenticate("jwt", { session: false }),
+  commentaryController.createCommentary
+);
+router.get("/commentary", commentaryController.getCommentaries);
+router.put(
+  "/commentary/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminOrOwner,
+  commentaryController.updateCommentary
+);
+router.delete(
+  "/commentary/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminOrOwner,
+  commentaryController.deleteCommentary
+);
 
 export default router;
