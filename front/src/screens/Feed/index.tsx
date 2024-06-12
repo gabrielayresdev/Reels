@@ -5,6 +5,7 @@ import { Container } from "./style";
 import PagerView from "react-native-pager-view";
 import { MY_IP } from "@env";
 import FeedService from "../../services/FeedService";
+import useFetch from "../../hooks/useFetch";
 
 export type Post = {
   id: string;
@@ -39,7 +40,11 @@ const Feed = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [currentPost, setCurrentPost] = React.useState(0);
 
-  React.useEffect(() => {
+  const [limit, setLimit] = React.useState(10);
+  const [offset, setOffset] = React.useState(0);
+  const { data } = useFetch<Post[]>(() => FeedService.getPosts(limit, offset));
+
+  /* React.useEffect(() => {
     async function getPosts() {
       try {
         console.log("Fazendo fetch");
@@ -54,7 +59,7 @@ const Feed = () => {
     }
 
     getPosts();
-  }, []);
+  }, []); */
 
   const onViewableItemsChanged = ({
     viewableItems,
@@ -70,7 +75,7 @@ const Feed = () => {
     <Container>
       <FlatList
         onViewableItemsChanged={onViewableItemsChanged}
-        data={posts}
+        data={data}
         renderItem={({ item, index }) => (
           <Post post={item} isPlaying={currentPost === index} />
         )}
