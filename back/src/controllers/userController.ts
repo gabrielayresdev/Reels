@@ -12,7 +12,16 @@ import getVisibleDataFromUser from "../utils/getVisibleDataFromUser";
 class UserController {
   async getAllUsers(req: Request, res: Response) {
     try {
-      const users = await prisma.user.findMany();
+      const limit = parseInt(
+        typeof req.query.limit === "string" ? req.query.limit : "10"
+      );
+      const offset = parseInt(
+        typeof req.query.offset === "string" ? req.query.offset : "0"
+      );
+      const users = await prisma.user.findMany({
+        take: limit,
+        skip: offset,
+      });
       res.status(200).json(users);
     } catch (error) {
       res.status(500).json({ error });
