@@ -6,10 +6,10 @@ export type BtnStyleProps = {
 };
 
 export const Btn = styled.TouchableOpacity<BtnStyleProps>`
-  ${({ type, disabled }) =>
+  ${({ theme, type, disabled }) =>
     type === "PRIMARY"
       ? css`
-          background: ${disabled ? "#ddd" : "#FE2B53"};
+          background: ${disabled ? "#363E4A" : theme.COLORS.B1};
         `
       : css`
           background: transparent;
@@ -25,13 +25,13 @@ export const Btn = styled.TouchableOpacity<BtnStyleProps>`
 `;
 
 export const BtnText = styled.Text<BtnStyleProps>`
-  ${({ type, disabled }) =>
+  ${({ theme, type, disabled }) =>
     type === "PRIMARY"
       ? css`
-          color: ${disabled ? "#000" : "#fff"};
+          color: ${disabled ? theme.COLORS.G0 : theme.COLORS.G4};
         `
       : css`
-          color: "#000";
+          color: ${theme.COLORS.G3};
         `}
 
   font-size: 16px;

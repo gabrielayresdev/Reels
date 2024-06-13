@@ -14,14 +14,14 @@ export const FlexBox = styled.View`
 
 export const Label = styled.Text`
   font-size: 20px;
-  color: #33415c;
+  color: ${({ theme }) => theme.COLORS.G2};
   font-family: ${({ theme }) => theme.FONT_FAMILY.ROBOTO.REGULAR};
 
   margin-bottom: 8px;
 `;
 
 export const Error = styled.Text`
-  color: #dc3838;
+  color: ${({ theme }) => theme.COLORS.R1};
   font-size: 14px;
   text-align: end;
 
@@ -31,12 +31,12 @@ export const Error = styled.Text`
 export const InputField = styled.TextInput.attrs({
   placeholderTextColor: "#979dac",
 })`
-  border-color: #ddd;
+  border-color: ${({ theme }) => theme.COLORS.G2};
   padding: 8px 0;
 
   font-size: 20px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.ROBOTO.REGULAR};
-  color: #000;
+  color: ${({ theme }) => theme.COLORS.G3};
 
   outline-style: none;
 `;
@@ -49,7 +49,7 @@ export const InputFieldMasked = styled(TextInputMask).attrs({
 
   font-size: 20px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.ROBOTO.REGULAR};
-  color: #000;
+  color: ${({ theme }) => theme.COLORS.G3};
 
   outline-style: none;
 `;

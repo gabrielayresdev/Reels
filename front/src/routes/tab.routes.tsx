@@ -7,17 +7,19 @@ import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useTheme } from "styled-components/native";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+  const theme = useTheme();
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
           height: 50,
-          backgroundColor: "#000",
+          backgroundColor: theme.COLORS.G1,
           borderTopWidth: 0,
         },
       }}

@@ -1,12 +1,12 @@
 import React from "react";
 import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Container } from "./styles";
 
 const AppConfig = () => {
   return (
-    <SafeAreaView>
-      <Text>App config</Text>
-    </SafeAreaView>
+    <Container>
+      <Text style={{ color: "white" }}>App config</Text>
+    </Container>
   );
 };
 

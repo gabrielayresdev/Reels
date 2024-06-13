@@ -11,4 +11,15 @@ export default {
       BOLD: "Poppins_700Bold",
     },
   },
+  COLORS: {
+    G0: "#000000",
+    G1: "#171826",
+    G2: "#979DAC",
+    G3: "#F5F2FA",
+    G4: "#FFFFFF",
+
+    B1: "#1673FF",
+
+    R1: "#FE2B53",
+  },
 };

@@ -7,15 +7,18 @@ import RegisterContextProvider from "../contexts/RegisterContext";
 import TabRoutes from "./tab.routes";
 import { UserContextProvider } from "../contexts/UserContext";
 import { Authenticated } from "../components/Authenticated";
+import { useTheme } from "styled-components/native";
 
 const NativeStack = createNativeStackNavigator();
 
 export default function NativeStackRoutes() {
+  const theme = useTheme();
   return (
     <NativeStack.Navigator
       screenOptions={{
         headerTitleAlign: "center",
         headerTransparent: true,
+        headerTintColor: theme.COLORS.G3,
       }}
     >
       <NativeStack.Screen

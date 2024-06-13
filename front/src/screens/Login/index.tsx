@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Form } from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
@@ -24,20 +24,22 @@ const Login = () => {
   };
   return (
     <Container>
-      <Input
-        value={email}
-        onChangeText={(text) => {
-          setEmail(text);
-        }}
-        placeholder="Email"
-      />
-      <Input
-        value={password}
-        onChangeText={(text) => {
-          setPassword(text);
-        }}
-        placeholder="Senha"
-      />
+      <Form>
+        <Input
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+          }}
+          placeholder="Email"
+        />
+        <Input
+          value={password}
+          onChangeText={(text) => {
+            setPassword(text);
+          }}
+          placeholder="Senha"
+        />
+      </Form>
       <Button text="Entrar" onClick={onSubmit} />
       <Button
         text="Criar conta"

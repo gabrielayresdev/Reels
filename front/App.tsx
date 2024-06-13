@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
@@ -36,6 +36,11 @@ export default function App() {
       {robotoLoaded && poppinsLoaded ? (
         <UserContextProvider>
           <Routes />
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="transparent"
+            translucent
+          />
         </UserContextProvider>
       ) : (
         <></>
@@ -47,7 +52,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#171826",
     alignItems: "center",
     justifyContent: "center",
   },
