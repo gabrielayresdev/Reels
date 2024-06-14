@@ -1,11 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import React from "react";
+import React, { useCallback } from "react";
 
-function useFetch<T>(callback: () => Promise<AxiosResponse<any, any>>) {
+function useFetch<T>(
+  callback: (...params: any) => Promise<AxiosResponse<any, any>>,
+  ...params: any
+) {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
-
+  const paramsMemo = React.useMemo(() => [...params], [...params]);
   React.useEffect(() => {
     const source = axios.CancelToken.source();
 
@@ -13,7 +16,7 @@ function useFetch<T>(callback: () => Promise<AxiosResponse<any, any>>) {
       setLoading(true);
       setError(null);
       try {
-        const response = await callback();
+        const response = await callback(...paramsMemo);
         setData(response.data);
       } catch (error) {
         if (error instanceof Error) {
@@ -31,7 +34,7 @@ function useFetch<T>(callback: () => Promise<AxiosResponse<any, any>>) {
     return () => {
       source.cancel("Request cancelled");
     };
-  }, [callback]);
+  }, [paramsMemo]);
 
   return { data, loading, error };
 }

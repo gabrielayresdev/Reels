@@ -42,7 +42,8 @@ const Feed = () => {
 
   const [limit, setLimit] = React.useState(10);
   const [offset, setOffset] = React.useState(0);
-  const { data } = useFetch<Post[]>(() => FeedService.getPosts(limit, offset));
+
+  const { data } = useFetch<Post[]>(FeedService.getPosts, limit, offset);
 
   /* React.useEffect(() => {
     async function getPosts() {
