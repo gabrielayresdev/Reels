@@ -15,14 +15,10 @@ export default {
   async login({ email, password }: LoginProps) {
     try {
       const response = api.post(`/login`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+        email: email,
+        password: password,
       });
+      console.log(response);
       return response;
     } catch (error) {
       console.log(error);
@@ -31,15 +27,10 @@ export default {
   async register({ name, email, password, phone }: RegisterProps) {
     try {
       const response = api.post("/register", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          phone,
-        }),
+        name,
+        email,
+        password,
+        phone,
       });
       return response;
     } catch (error) {
