@@ -3,7 +3,6 @@ import { Dimensions, TouchableOpacity, View } from "react-native";
 import { Post as PostType } from "../../screens/Feed";
 import VideoPlayer from "../VideoPlayer";
 import {
-  Avatar,
   Container,
   DataContainer,
   FollowButton,
@@ -21,6 +20,8 @@ import LottieView from "lottie-react-native";
 import SpotifySoundTrack from "../SpotifySoundTrack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MY_IP } from "@env";
+import FeedService from "../../services/FeedService";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {
   post: PostType;
@@ -32,6 +33,7 @@ const Post = ({ post, isPlaying }: Props) => {
   const insets = useSafeAreaInsets();
   const likeRef = React.useRef<LottieView | null>(null);
   const [liked, setLiked] = React.useState(false);
+  const auth = useAuth();
 
   const width = dimensions.width;
   const height = dimensions.height - insets.top - 50;
@@ -40,14 +42,15 @@ const Post = ({ post, isPlaying }: Props) => {
     likeRef?.current?.play(0, 30);
   });
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (liked) {
       likeRef?.current?.reset();
     } else {
       likeRef?.current?.play(30, 144);
     }
-
     setLiked(!liked);
+    // Token must exist; otherwise, user shouldn't be in this page
+    await FeedService.handleLike(post.id, auth.token!);
   };
 
   return (
@@ -55,13 +58,10 @@ const Post = ({ post, isPlaying }: Props) => {
       <DataContainer>
         <LeftSideContainer>
           <UserData>
-            <Avatar />
-            <View>
-              <Name>{post.author.name}</Name>
-              <FollowButton>
-                <FollowButtonText>Follow</FollowButtonText>
-              </FollowButton>
-            </View>
+            <Name>{post.author.name}</Name>
+            <FollowButton>
+              <FollowButtonText>Follow</FollowButtonText>
+            </FollowButton>
           </UserData>
           <Title>{post.title}</Title>
           <SpotifySoundTrack title={post.soundtrackUrl} />

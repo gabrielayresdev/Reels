@@ -46,21 +46,19 @@ const Feed = () => {
   const { data } = useFetch<Post[]>(FeedService.getPosts, limit, offset);
 
   /* React.useEffect(() => {
-    async function getPosts() {
-      try {
-        console.log("Fazendo fetch");
-        const response = await FeedService.getPosts();
-        if (response?.status === 200) {
-          const data: Post[] = response.data();
-          setPosts(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    console.log("oi");
+    if (data) {
+      setPosts((current) => [...current, ...data]);
     }
+  }, [data]);
 
-    getPosts();
-  }, []); */
+  React.useEffect(() => {
+    if (limit - currentPost < 4) {
+      setLimit(limit + 10);
+      setOffset(offset + 10);
+      console.log(limit, offset);
+    }
+  }, [currentPost]); */
 
   const onViewableItemsChanged = ({
     viewableItems,

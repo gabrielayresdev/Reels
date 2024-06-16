@@ -14,4 +14,21 @@ export default {
       throw error;
     }
   },
+
+  async handleLike(postId: string, token: string) {
+    try {
+      const response = api.put(
+        `/handleLike/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

@@ -47,14 +47,7 @@ export const RightSideContainer = styled.View`
 export const UserData = styled.View`
   flex-direction: row;
   align-items: center;
-  gap: 8px;
-`;
-
-export const Avatar = styled.View`
-  width: 60px;
-  height: 60px;
-  background-color: gray;
-  border-radius: 30px;
+  gap: 16px;
 `;
 
 export const Name = styled.Text`
