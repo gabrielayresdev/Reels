@@ -32,14 +32,20 @@ const Post = ({ post, isPlaying }: Props) => {
   const dimensions = Dimensions.get("window");
   const insets = useSafeAreaInsets();
   const likeRef = React.useRef<LottieView | null>(null);
-  const [liked, setLiked] = React.useState(false);
   const auth = useAuth();
+  const [liked, setLiked] = React.useState(() => {
+    return auth.user?.likes?.some((current) => current.id === post.id);
+  });
 
   const width = dimensions.width;
   const height = dimensions.height - insets.top - 50;
 
-  React.useState(() => {
-    likeRef?.current?.play(0, 30);
+  React.useEffect(() => {
+    if (liked) {
+      likeRef?.current?.play(144, 144);
+    } else {
+      likeRef?.current?.play(0, 30);
+    }
   });
 
   const handleLike = async () => {
@@ -52,7 +58,6 @@ const Post = ({ post, isPlaying }: Props) => {
     // Token must exist; otherwise, user shouldn't be in this page
     await FeedService.handleLike(post.id, auth.token!);
   };
-
   return (
     <Container width={width} height={height}>
       <DataContainer>
@@ -71,6 +76,7 @@ const Post = ({ post, isPlaying }: Props) => {
             <HeartContainer>
               <HeartIcon
                 source={require("../../../assets/like_animation.json")}
+                autoPlay={false}
                 loop={false}
                 ref={likeRef}
               />
