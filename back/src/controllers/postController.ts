@@ -41,7 +41,7 @@ class postController {
         where: {
           id: id,
         },
-        include: { file: true },
+        include: { file: true, author: true },
       });
       return res.status(200).json(post);
     } catch (err) {}

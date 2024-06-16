@@ -52,7 +52,7 @@ router.post(
   postController.createPost
 );
 router.get(
-  "/post",
+  "/post/:id",
   passport.authenticate("jwt", { session: false }),
   postController.getPost
 );
