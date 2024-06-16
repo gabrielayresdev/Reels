@@ -15,6 +15,23 @@ export default {
     }
   },
 
+  async getPostsById(postsIds: string[], token: string) {
+    try {
+      const promises = Promise.all(
+        postsIds.map((postId) =>
+          api.get(`/post/${postId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+        )
+      );
+      return promises;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async handleLike(postId: string, token: string) {
     try {
       const response = api.put(

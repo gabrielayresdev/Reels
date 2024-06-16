@@ -1,9 +1,7 @@
 import React from "react";
-import { FlatList, Text, View, ViewToken } from "react-native";
+import { FlatList, ViewToken } from "react-native";
 import Post from "../../components/Post";
 import { Container } from "./styles";
-import PagerView from "react-native-pager-view";
-import { MY_IP } from "@env";
 import FeedService from "../../services/FeedService";
 import useFetch from "../../hooks/useFetch";
 

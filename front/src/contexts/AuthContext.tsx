@@ -3,12 +3,14 @@ import { useNavigation } from "@react-navigation/native";
 import { TOKEN } from "../storage/storageConfig";
 import useAsyncStorage from "../hooks/useAsyncStorage";
 import AuthService from "../services/AuthService";
+import { Post } from "../screens/Feed";
 
 export type User = {
   id: string;
   name: string;
   email: string;
   phone: string;
+  likes: Post[];
 };
 type LoginProps = {
   email: string;
