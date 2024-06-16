@@ -46,6 +46,44 @@ class postController {
       return res.status(200).json(post);
     } catch (err) {}
   }
+  async handleLike(req: Request, res: Response) {
+    try {
+      const userId = req.user;
+      const { postId } = req.params;
+
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      const post = await prisma.post.findUnique({
+        where: { id: postId },
+        include: { likes: true },
+      });
+
+      if (!user) return res.status(404).json({ error: "User not found" });
+      if (!post) return res.status(404).json({ error: "Post not found" });
+
+      const hasLiked = post.likes.some((like) => like.id === userId);
+      if (hasLiked) {
+        await prisma.post.update({
+          where: { id: postId },
+          data: {
+            likes: {
+              disconnect: { id: userId },
+            },
+          },
+        });
+        return res.status(200).json({ message: "Post unliked successfully" });
+      } else {
+        await prisma.post.update({
+          where: { id: postId },
+          data: {
+            likes: {
+              connect: { id: userId },
+            },
+          },
+        });
+        return res.status(200).json({ message: "Post liked successfully" });
+      }
+    } catch (error) {}
+  }
   async getPosts(req: Request, res: Response) {
     try {
       console.log("oi");

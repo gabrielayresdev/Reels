@@ -38,6 +38,11 @@ router.delete(
 /* ============= AUTH ROUTES ============= */
 router.post("/login", authController.login);
 router.post("/register", authController.register);
+router.get(
+  "/getData",
+  passport.authenticate("jwt", { session: false }),
+  authController.getData
+);
 
 /* ============= POST ROUTES ============= */
 router.post(
@@ -63,6 +68,11 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   checkAdminOrOwner,
   postController.deletePost
+);
+router.put(
+  "/handleLike/:postId",
+  passport.authenticate("jwt", { session: false }),
+  postController.handleLike
 );
 
 /* ============= COMMENTARY ROUTES ============= */

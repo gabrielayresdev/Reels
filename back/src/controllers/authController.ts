@@ -29,16 +29,34 @@ class AuthController {
     try {
       const user = await prisma.user.findUnique({
         where: { email: req.body.email },
+        include: { likes: true },
       });
       if (!user) return res.status(404).json({ message: "User not found." });
       const { password } = req.body;
       if (auth.checkPassword(password, user.hash, user.salt)) {
         const token = auth.generateJWT(user, true);
-
-        return res.status(200).json({ token });
+        const { hash, salt, adm, ...returnUser } = user;
+        return res.status(200).json({ token, user: returnUser });
       } else {
         return res.status(401).json({ message: "Invalid password" });
       }
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
+  }
+
+  async getData(req: Request, res: Response) {
+    try {
+      const id = req.user;
+      const user = await prisma.user.findUnique({
+        where: { id: id },
+        include: { likes: true },
+      });
+      if (!user) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+      const { hash, salt, adm, ...returnData } = user;
+      return res.status(200).json({ user: returnData });
     } catch (error) {
       return res.status(500).json({ error: error });
     }
