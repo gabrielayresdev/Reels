@@ -4,6 +4,8 @@ import Post from "../../components/Post";
 import { Container } from "./styles";
 import FeedService from "../../services/FeedService";
 import useFetch from "../../hooks/useFetch";
+import { useFocusEffect } from "@react-navigation/native";
+import { useAuth } from "../../contexts/AuthContext";
 
 export type Post = {
   id: string;
@@ -40,8 +42,24 @@ const Feed = () => {
 
   const [limit, setLimit] = React.useState(10);
   const [offset, setOffset] = React.useState(0);
+  const auth = useAuth();
 
-  const { data } = useFetch<Post[]>(FeedService.getPosts, limit, offset);
+  useFocusEffect(
+    React.useCallback(() => {
+      try {
+        auth.updateUser();
+      } catch (error) {
+        console.log(error);
+      }
+    }, [])
+  );
+
+  React.useEffect(() => {
+    (async () => {
+      const response = await FeedService.getPosts(limit, offset);
+      setPosts(response.data);
+    })();
+  }, [auth.user]);
 
   /* React.useEffect(() => {
     console.log("oi");
@@ -72,7 +90,7 @@ const Feed = () => {
     <Container>
       <FlatList
         onViewableItemsChanged={onViewableItemsChanged}
-        data={data}
+        data={posts}
         renderItem={({ item, index }) => (
           <Post post={item} isPlaying={currentPost === index} />
         )}

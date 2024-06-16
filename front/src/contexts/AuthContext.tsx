@@ -21,6 +21,7 @@ type AuthContextValue = {
   token: string | null;
   loginAction: (data: LoginProps) => void;
   logOut: () => void;
+  updateUser: (callback?: () => void) => void;
 };
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -46,18 +47,27 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
     }
   };
 
-  const getData = React.useCallback(async () => {
-    if (!user && token) {
-      try {
-        const response = await AuthService.getData(token);
-
-        if (response?.data.user) {
-          setUser(response.data.user);
-          navigation.navigate("Auth");
-        }
-      } catch (err) {
-        console.log(err);
+  const updateUser = async (callback?: () => void) => {
+    try {
+      if (!token) {
+        console.log("Returning before updating user");
+        return;
       }
+      const response = await AuthService.getData(token);
+
+      if (response?.data.user) {
+        setUser(response.data.user);
+        if (callback) callback();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getData = React.useCallback(async () => {
+    if (!user) {
+      updateUser();
+      navigation.navigate("Auth");
     }
   }, [navigation, token, user]);
 
@@ -72,7 +82,9 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, loginAction, logOut }}>
+    <AuthContext.Provider
+      value={{ token, user, loginAction, logOut, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

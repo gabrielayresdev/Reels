@@ -43,20 +43,24 @@ const Feed = () => {
   useFocusEffect(
     React.useCallback(() => {
       try {
-        const updatePosts = async () => {
-          if (auth.user?.likes) {
-            const ids = auth.user.likes.map((post) => post.id);
-            const posts = await FeedService.getPostsById(ids, auth.token!);
-            const data: Post[] = (posts ?? []).map((current) => current.data);
-            setPosts(data);
-          }
-        };
-        updatePosts();
+        auth.updateUser();
       } catch (error) {
         console.log(error);
       }
     }, [])
   );
+
+  React.useEffect(() => {
+    (async () => {
+      console.log(auth.user?.likes);
+      if (auth.user?.likes) {
+        const ids = auth.user.likes.map((post) => post.id);
+        const posts = await FeedService.getPostsById(ids, auth.token!);
+        const data: Post[] = (posts ?? []).map((current) => current.data);
+        setPosts(data);
+      }
+    })();
+  }, [auth.user]);
 
   const onViewableItemsChanged = ({
     viewableItems,
