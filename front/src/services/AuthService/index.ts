@@ -1,3 +1,4 @@
+import { User } from "../../contexts/AuthContext";
 import api from "../api";
 
 type RegisterProps = {
@@ -14,11 +15,10 @@ type LoginProps = {
 export default {
   async login({ email, password }: LoginProps) {
     try {
-      const response = api.post(`/login`, {
+      const response = api.post<{ user: User; token: string }>(`/login`, {
         email: email,
         password: password,
       });
-      console.log(response);
       return response;
     } catch (error) {
       console.log(error);
@@ -31,6 +31,18 @@ export default {
         email,
         password,
         phone,
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getData(token: string) {
+    try {
+      const response = api.get<{ user: User }>("/getData", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response;
     } catch (error) {

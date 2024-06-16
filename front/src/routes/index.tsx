@@ -1,11 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
-import TabRoutes from "./tab.routes";
 import NativeStackRoutes from "./stack.routes";
+import AuthProvider from "../contexts/AuthContext";
 
 export default function Routes() {
   return (
     <NavigationContainer>
-      <NativeStackRoutes />
+      <AuthProvider>
+        <NativeStackRoutes />
+      </AuthProvider>
       {/* <TabRoutes /> */}
     </NavigationContainer>
   );

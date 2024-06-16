@@ -15,8 +15,8 @@ import {
   useFonts as useRobotoFonts,
 } from "@expo-google-fonts/roboto";
 import Routes from "./src/routes";
-import { UserContextProvider } from "./src/contexts/UserContext";
 import { MY_IP } from "@env";
+import AuthProvider from "./src/contexts/AuthContext";
 
 export default function App() {
   const [robotoLoaded] = useRobotoFonts({
@@ -33,27 +33,12 @@ export default function App() {
   console.log(MY_IP);
   return (
     <ThemeProvider theme={theme}>
-      {robotoLoaded && poppinsLoaded ? (
-        <UserContextProvider>
-          <Routes />
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent
-          />
-        </UserContextProvider>
-      ) : (
-        <></>
-      )}
+      {robotoLoaded && poppinsLoaded ? <Routes /> : <></>}
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#171826",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
