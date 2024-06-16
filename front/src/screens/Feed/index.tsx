@@ -6,6 +6,7 @@ import FeedService from "../../services/FeedService";
 import useFetch from "../../hooks/useFetch";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../../contexts/AuthContext";
+import EmptyPage from "../../components/EmptyPage";
 
 export type Post = {
   id: string;
@@ -96,6 +97,7 @@ const Feed = () => {
         )}
         keyExtractor={(item) => item.id}
         pagingEnabled
+        ListEmptyComponent={EmptyPage}
       />
     </Container>
   );

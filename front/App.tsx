@@ -17,6 +17,7 @@ import {
 import Routes from "./src/routes";
 import { MY_IP } from "@env";
 import AuthProvider from "./src/contexts/AuthContext";
+import Loading from "./src/components/Loading";
 
 export default function App() {
   const [robotoLoaded] = useRobotoFonts({
@@ -33,7 +34,7 @@ export default function App() {
   console.log(MY_IP);
   return (
     <ThemeProvider theme={theme}>
-      {robotoLoaded && poppinsLoaded ? <Routes /> : <></>}
+      {robotoLoaded && poppinsLoaded ? <Routes /> : <Loading />}
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
