@@ -40,18 +40,18 @@ $ git clone https://github.com/gabrielayresdev/Reels.git
 ## Configuração
 
 Na pasta back, precisamos configurar o ambiente. Começamos mudando o nome do arquivo .env.example na raiz do projeto para .env
-e depois mudamos a variável DATABASE_URL substituindo os conteúdos das chave pelo valor correspondente ao seu banco de dados
+e depois mudamos a variável DATABASE_URL substituindo os conteúdos das chave pelo valor correspondente ao seu banco de dados e as variáveis SPOTIFY_CLIENT_ID e SPOTIFY_CLIENT_SECRET com seus Ids da API do spotify (verificar https://developer.spotify.com/documentation/web-api/tutorials/getting-started)
 
 ```js
 DATABASE_URL =
   "postgresql://{dbname}:{dbpassword}@localhost:5432/{DATABASE}?schema=public";
 ```
 
-também é necessário modificar as varáveis {ip} nos arquivos UserAuth, Post, Login e Feed pelo ip do seu computador.
+também é necessário renomear o .env.example no front e modificar a varável MY_IP com o IP do seu computador.
 
 ## Uso
 
-depois realizamos os seguintes comandos
+depois realizamos os seguintes comandos na pasta back
 
 ```bash
 npm install
@@ -78,10 +78,10 @@ npm run start
 ## Arquitetura
 
 - [Figma](https://www.figma.com/design/Q2nBrQ1E8kUlg8hS9xQXAd/PSI---Tech-Lead?node-id=0-1&t=LRLix1A8fHpHGGbs-1)
-- [Modelagem](https://prnt.sc/7aqQk5AWJfOV)
+- [Modelagem](https://prnt.sc/43Gu8dBAJGtH)
 
 ## Autores
 
 > Gabriel Ayres
 
-## Última atualização: 24/05/2024
+## Última atualização: 17/06/2024

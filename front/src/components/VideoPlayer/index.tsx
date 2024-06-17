@@ -14,7 +14,7 @@ const VideoPlayer = ({
   const insets = useSafeAreaInsets();
   const width = dimensions.width;
   const height = dimensions.height - insets.top - 50;
-
+  console.log(url);
   return (
     <Video
       key={1}
