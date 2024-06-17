@@ -22,55 +22,47 @@ export default function TabRoutes() {
           backgroundColor: theme.COLORS.G1,
           borderTopWidth: 0,
         },
+        tabBarActiveTintColor: "#7657CB",
       }}
     >
       <Tab.Screen
         name="Feed"
         component={Feed}
         options={{
-          tabBarIcon: () => <Feather name="home" color={"#fff"} size={18} />,
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" color={color} size={18} />
+          ),
           tabBarLabel: "Inicio",
-          tabBarLabelStyle: {
-            color: "#fff",
-          },
         }}
       />
       <Tab.Screen
         name="Liked"
         component={Liked}
         options={{
-          tabBarIcon: () => (
-            <AntDesign name="hearto" color={"#fff"} size={18} />
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="hearto" color={color} size={18} />
           ),
           tabBarLabel: "Curtidas",
-          tabBarLabelStyle: {
-            color: "#fff",
-          },
         }}
       />
       <Tab.Screen
         name="AppConfig"
         component={AppConfig}
         options={{
-          tabBarIcon: () => <Octicons name="gear" color={"#fff"} size={18} />,
+          tabBarIcon: ({ color }) => (
+            <Octicons name="gear" color={color} size={18} />
+          ),
           tabBarLabel: "Configurações",
-          tabBarLabelStyle: {
-            color: "#fff",
-          },
         }}
       />
-
       <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: () => (
-            <FontAwesome name="user-o" color={"#fff"} size={18} />
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user-o" color={color} size={18} />
           ),
           tabBarLabel: "Perfil",
-          tabBarLabelStyle: {
-            color: "#fff",
-          },
         }}
       />
     </Tab.Navigator>
