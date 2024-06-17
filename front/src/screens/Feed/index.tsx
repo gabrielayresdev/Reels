@@ -12,7 +12,8 @@ export type Post = {
   id: string;
   authorId: string;
   title: string;
-  soundtrackUrl: string;
+  soundtrackUrl: string | null;
+  soundtrackName: string;
   file: File;
   author: Author;
 };

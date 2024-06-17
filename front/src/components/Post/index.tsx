@@ -69,7 +69,10 @@ const Post = ({ post, isPlaying }: Props) => {
             </FollowButton>
           </UserData>
           <Title>{post.title}</Title>
-          <SpotifySoundTrack title={post.soundtrackUrl} />
+          <SpotifySoundTrack
+            title={post.soundtrackName}
+            url={post.soundtrackUrl}
+          />
         </LeftSideContainer>
         <RightSideContainer>
           <TouchableOpacity onPress={handleLike}>
