@@ -3,7 +3,7 @@ import { FlatList, ViewToken } from "react-native";
 import Post from "../../components/Post";
 import { Container } from "./styles";
 import FeedService from "../../services/FeedService";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../contexts/AuthContext";
 import EmptyPage from "../../components/EmptyPage";
 
@@ -11,6 +11,7 @@ export type Post = {
   id: string;
   authorId: string;
   title: string;
+  soundtrackName: string;
   soundtrackUrl: string;
   file: File;
   author: Author;
@@ -73,13 +74,25 @@ const Feed = () => {
     );
   };
 
+  const [pause, setPause] = React.useState(false);
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    navigation.addListener("focus", (route) => {
+      setPause(false);
+    });
+    navigation.addListener("blur", (route) => {
+      setPause(true);
+    });
+  }, []);
+
   return (
     <Container>
       <FlatList
         onViewableItemsChanged={onViewableItemsChanged}
         data={posts}
         renderItem={({ item, index }) => (
-          <Post post={item} isPlaying={currentPost === index} />
+          <Post post={item} isPlaying={currentPost === index && !pause} />
         )}
         keyExtractor={(item) => item.id}
         pagingEnabled
