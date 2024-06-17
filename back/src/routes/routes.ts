@@ -43,6 +43,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   authController.getData
 );
+router.get("/authSpotify", authController.getSpotifyAuth);
 
 /* ============= POST ROUTES ============= */
 router.post(

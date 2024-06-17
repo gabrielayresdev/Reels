@@ -35,7 +35,7 @@ class AuthController {
       const { password } = req.body;
       if (auth.checkPassword(password, user.hash, user.salt)) {
         const token = auth.generateJWT(user, true);
-        const { hash, salt, adm, ...returnUser } = user;
+        const { adm, ...returnUser } = user;
         return res.status(200).json({ token, user: returnUser });
       } else {
         return res.status(401).json({ message: "Invalid password" });
@@ -59,6 +59,29 @@ class AuthController {
       return res.status(200).json({ user: returnData });
     } catch (error) {
       return res.status(500).json({ error: error });
+    }
+  }
+
+  async getSpotifyAuth(req: Request, res: Response) {
+    try {
+      const client_id = process.env.SPOTIFY_CLIENT_ID;
+      const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+      const encoded = Buffer.from(`${client_id}:${client_secret}`).toString(
+        "base64"
+      );
+
+      const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${encoded}`,
+        },
+        body: "grant_type=client_credentials",
+      });
+      const json = await response.json();
+      return res.status(200).json({ data: json });
+    } catch (error) {
+      return res.status(500).json({ message: "Something went wrong" });
     }
   }
 }

@@ -11,12 +11,13 @@ class postController {
       if (!req.user) return res.status(404).send("You must be logged in");
       if (!req.file) return res.status(404).send("You must provide a file");
       const { filename, originalname, size, mimetype } = req.file;
-      const { title, soundtrackUrl } = req.body;
+      const { title, soundtrackUrl, soundTrackName } = req.body;
 
       const post = await prisma.post.create({
         data: {
           authorId: req.user,
           title,
+          soundtrackName: soundTrackName ?? "Som Original",
           soundtrackUrl,
           file: {
             create: {
