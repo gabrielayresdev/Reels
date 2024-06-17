@@ -8,7 +8,7 @@ const RequireAuth = ({ children }: React.PropsWithChildren) => {
   const navigation = useNavigation();
 
   React.useEffect(() => {
-    if (!auth.user) navigation.navigate("Login");
+    if (!auth.user) navigation.navigate("Register");
   }, [auth.user, navigation]);
 
   // Can also use children instead of Outlet

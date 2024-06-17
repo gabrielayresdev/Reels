@@ -65,7 +65,7 @@ const Post = ({ post, isPlaying }: Props) => {
           <UserData>
             <Name>{post.author.name}</Name>
             <FollowButton>
-              <FollowButtonText>Follow</FollowButtonText>
+              <FollowButtonText>Seguir</FollowButtonText>
             </FollowButton>
           </UserData>
           <Title>{post.title}</Title>

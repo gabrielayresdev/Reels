@@ -34,11 +34,7 @@ export default function NativeStackRoutes() {
         name="Auth"
         options={{ title: "", headerShown: false }}
       >
-        {() => (
-          <RequireAuth>
-            <TabRoutes />
-          </RequireAuth>
-        )}
+        {() => <TabRoutes />}
       </NativeStack.Screen>
     </NativeStack.Navigator>
   );

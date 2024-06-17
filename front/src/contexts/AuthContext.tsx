@@ -76,9 +76,8 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
   }, [token, getData]);
 
   const logOut = () => {
-    setUser(null);
     setToken(null);
-    navigation.navigate("Login");
+    setUser(null);
   };
 
   return (
