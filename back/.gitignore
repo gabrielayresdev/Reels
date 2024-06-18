@@ -1,7 +1,6 @@
 .env
 id_rsa_priv.pem
 id_rsa_pub.pem
-uploads
 src/models/migrations
 node_modules/
     .DS_Store
