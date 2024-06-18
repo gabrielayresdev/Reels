@@ -110,7 +110,7 @@ const Feed = () => {
         onViewableItemsChanged={onViewableItemsChanged}
         data={posts}
         renderItem={({ item, index }) => (
-          <Post post={item} isPlaying={currentPost === index} />
+          <Post post={item} isPlaying={currentPost === index && !pause} />
         )}
         keyExtractor={(item) => item.id}
         pagingEnabled

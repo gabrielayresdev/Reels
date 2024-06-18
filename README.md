@@ -69,7 +69,7 @@ na pasta do front, é necessário apenas dos comandos
 
 ```bash
 npm install
-npm run start
+npm run android
 ```
 
 > **Atenção**
